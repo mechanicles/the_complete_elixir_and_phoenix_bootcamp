@@ -1,6 +1,8 @@
 defmodule Discuss.Comment do
   use Discuss.Web, :model
 
+  @derive {Poison.Encoder, only: [:content, :user]}
+
   schema "comments" do
     field :content, :string
     belongs_to :user, Discuss.User
@@ -12,6 +14,6 @@ defmodule Discuss.Comment do
   def changeset(struct, params \\ {}) do
     struct
     |> cast(params, [:content])
-    |> validate_requried([:content])
+    |> validate_required([:content])
   end
 end
